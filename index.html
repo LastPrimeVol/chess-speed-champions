@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Speed Chess Champions</title>
+    <meta
+      name="description"
+      content="Интерактивный сайт о чемпионах мира FIDE по быстрым шахматам и блицу."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="topbar" aria-label="Навигация">
+        <a class="brand" href="#top">
+          <span class="brand-mark">♞</span>
+          <span>Speed Chess Champions</span>
+        </a>
+        <div class="top-links">
+          <a href="#champions">Чемпионы</a>
+          <a href="#candidates">Претенденты</a>
+          <a href="#classical">Классика</a>
+          <a href="#context">2000–2011</a>
+          <a href="#sources">Источники</a>
+        </div>
+      </nav>
+
+      <section id="top" class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">FIDE Rapid & Blitz / Open section</p>
+          <h1>Чемпионы мира по рапиду и блицу с понятной историей по годам.</h1>
+          <p>
+            Витрина показывает официальную совместную серию FIDE World Rapid & Blitz
+            с 2012 года по настоящее время, с фото чемпионов, городом, счётом и таблицей лидеров.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#champions">Смотреть таблицу</a>
+            <a class="button ghost" href="#context">Почему не с 2000?</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Краткая статистика">
+          <div>
+            <span class="stat-value" id="rapid-count">0</span>
+            <span class="stat-label">титулов рапид в базе</span>
+          </div>
+          <div>
+            <span class="stat-value" id="blitz-count">0</span>
+            <span class="stat-label">титулов блиц в базе</span>
+          </div>
+          <div>
+            <span class="stat-value">2012</span>
+            <span class="stat-label">старт ежегодной совместной серии</span>
+          </div>
+        </aside>
+      </section>
+    </header>
+
+    <main>
+      <section class="section controls-section" id="champions">
+        <div class="section-heading">
+          <p class="eyebrow">Championship archive</p>
+          <h2>Карточки чемпионатов</h2>
+        </div>
+        <div class="controls" aria-label="Фильтры">
+          <button class="filter active" type="button" data-filter="all">Все</button>
+          <button class="filter" type="button" data-filter="rapid">Рапид</button>
+          <button class="filter" type="button" data-filter="blitz">Блиц</button>
+        </div>
+        <div class="timeline" id="championships-list"></div>
+      </section>
+
+      <section class="section feature-section" id="candidates">
+        <div class="section-heading">
+          <p class="eyebrow">Candidates Tournament</p>
+          <h2>Победители турнира претендентов</h2>
+          <p class="section-lead">
+            Турнир претендентов определяет игрока, который получает право сыграть матч
+            за классическую шахматную корону.
+          </p>
+        </div>
+        <div class="feature-grid" id="candidates-list"></div>
+      </section>
+
+      <section class="section feature-section" id="classical">
+        <div class="section-heading">
+          <p class="eyebrow">Classical World Championship</p>
+          <h2>Чемпионы мира по классике с 2012 года</h2>
+          <p class="section-lead">
+            Здесь показаны матчи за главный классический титул. Если в каком-то году
+            матча не было, чемпион сохранял корону до следующего цикла.
+          </p>
+        </div>
+        <div class="feature-grid" id="classical-list"></div>
+      </section>
+
+      <section class="section context" id="context">
+        <div>
+          <p class="eyebrow">Historical note</p>
+          <h2>Почему основная база начинается с 2012 года</h2>
+        </div>
+        <div class="context-copy">
+          <p>
+            До 2012 года быстрые шахматы и блиц проводились нерегулярно: были отдельные
+            FIDE-признанные турниры, матчи и коммерческие серии. Поэтому для честной базы
+            “каждый год + топ-5 + очки” лучше отделять официальный современный цикл FIDE
+            от раннего контекста.
+          </p>
+          <div class="archive-strip">
+            <article>
+              <span>2001</span>
+              <strong>FIDE World Cup of Rapid Chess</strong>
+              <p>Гарри Каспаров победил Евгения Бареева в финале.</p>
+            </article>
+            <article>
+              <span>2003</span>
+              <strong>FIDE World Rapid Championship</strong>
+              <p>Вишванатан Ананд выиграл финал у Владимира Крамника.</p>
+            </article>
+            <article>
+              <span>2012+</span>
+              <strong>World Rapid & Blitz</strong>
+              <p>FIDE запускает совместный цикл рапида и блица.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section sources" id="sources">
+        <div class="section-heading">
+          <p class="eyebrow">Sources</p>
+          <h2>Откуда взяты данные</h2>
+        </div>
+        <ul>
+          <li><a href="https://en.wikipedia.org/wiki/World_Rapid_Chess_Championship">World Rapid Chess Championship</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/World_Blitz_Chess_Championship">World Blitz Chess Championship</a></li>
+          <li><a href="https://www.chess.com/news/view/carlsen-goryachkina-win-2025-fide-world-rapid-chess-championships">Chess.com: 2025 Rapid final standings</a></li>
+          <li><a href="https://en.chessbase.com/post/world-rapid-blitz-2025-5">ChessBase: 2025 Blitz Swiss standings</a></li>
+          <li><a href="https://www.chess.com/news/view/sindarov-vaishali-win-7-fide-candidates-2026-conclusions">Chess.com: 2026 Candidates winner</a></li>
+          <li><a href="https://www.chess.com/article/view/world-chess-champions">Chess.com: classical world champions</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/World_Rapid_Chess_Championship_2024">Wikipedia: 2024 Rapid results</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/World_Blitz_Chess_Championship_2024">Wikipedia: 2024 Blitz results</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
