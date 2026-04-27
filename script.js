@@ -17,6 +17,70 @@ const photoPages = {
   "Javokhir Sindarov": "Javokhir Sindarov",
 };
 
+const russianNames = {
+  "Magnus Carlsen": "Магнус Карлсен",
+  "Vladislav Artemiev": "Владислав Артемьев",
+  "Arjun Erigaisi": "Арджун Эригайси",
+  "Hans Niemann": "Ханс Ниманн",
+  "Leinier Dominguez Perez": "Леньер Домингес Перес",
+  "Nodirbek Abdusattorov": "Нодирбек Абдусатторов",
+  "Fabiano Caruana": "Фабиано Каруана",
+  "Maxime Vachier-Lagrave": "Максим Вашье-Лаграв",
+  "Volodar Murzin": "Володар Мурзин",
+  "Alexander Grischuk": "Александр Грищук",
+  "Ian Nepomniachtchi": "Ян Непомнящий",
+  "Wesley So": "Уэсли Со",
+  "Alireza Firouzja": "Алиреза Фирузджа",
+  "Jan-Krzysztof Duda": "Ян-Кшиштоф Дуда",
+  "Vladimir Fedoseev": "Владимир Федосеев",
+  "Yu Yangyi": "Юй Янъи",
+  "Vidit Gujrathi": "Видит Гуджрати",
+  "Daniil Dubov": "Даниил Дубов",
+  "Vincent Keymer": "Винсент Каймер",
+  "Hikaru Nakamura": "Хикару Накамура",
+  "Haik Martirosyan": "Айк Мартиросян",
+  "Anish Giri": "Аниш Гири",
+  "Levon Aronian": "Левон Аронян",
+  "Vladimir Kramnik": "Владимир Крамник",
+  "Shakhriyar Mamedyarov": "Шахрияр Мамедьяров",
+  "Peter Svidler": "Пётр Свидлер",
+  "Viswanathan Anand": "Вишванатан Ананд",
+  "Bu Xiangzhi": "Бу Сянчжи",
+  "Wang Hao": "Ван Хао",
+  "Vasyl Ivanchuk": "Василий Иванчук",
+  "Sergey Karjakin": "Сергей Карякин",
+  "Teimour Radjabov": "Теймур Раджабов",
+  "Leinier Dominguez Perez": "Леньер Домингес Перес",
+  "Dmitry Bocharov": "Дмитрий Бочаров",
+  "Le Quang Liem": "Ле Куанг Льем",
+  "Gadir Guseinov": "Гадир Гусейнов",
+  "Ruslan Ponomariov": "Руслан Пономарёв",
+  "Nguyen Ngoc Truong Son": "Нгуен Нгок Чыонг Шон",
+  "Veselin Topalov": "Веселин Топалов",
+  "Alexander Morozevich": "Александр Морозевич",
+  "Dmitry Andreikin": "Дмитрий Андрейкин",
+  "Javokhir Sindarov": "Жавохир Синдаров",
+  "Gukesh Dommaraju": "Гукеш Доммараджу",
+  "Ding Liren": "Дин Лижэнь",
+  "Boris Gelfand": "Борис Гельфанд",
+};
+
+const russianNameAliases = {
+  Carlsen: "Карлсен",
+  Anand: "Ананд",
+  Dubov: "Дубов",
+  Mamedyarov: "Мамедьяров",
+  Nakamura: "Накамура",
+  Karjakin: "Карякин",
+  Grischuk: "Грищук",
+  "Vachier-Lagrave": "Вашье-Лаграв",
+  Kramnik: "Крамник",
+  Ivanchuk: "Иванчук",
+  Gukesh: "Гукеш",
+  Sindarov: "Синдаров",
+  "Ding Liren": "Дин Лижэнь",
+};
+
 const photoCache = new Map();
 
 const photoOverrides = {
@@ -439,14 +503,34 @@ const classicalMatches = [
 ];
 
 function initials(name) {
-  if (name.includes("/")) return "1";
+  const display = localizeName(name);
+  if (display.includes("/")) return "1";
   if (name === "—") return "—";
-  return name
+  return display
     .split(" ")
     .filter(Boolean)
     .slice(0, 2)
     .map((part) => part[0])
     .join("");
+}
+
+function localizeName(name) {
+  return name
+    .split("/")
+    .map((part) => {
+      const trimmed = part.trim();
+      return russianNames[trimmed] || trimmed;
+    })
+    .join(" / ");
+}
+
+function localizeText(text) {
+  const withFullNames = Object.entries(russianNames)
+    .sort((a, b) => b[0].length - a[0].length)
+    .reduce((result, [english, russian]) => result.replaceAll(english, russian), text);
+  return Object.entries(russianNameAliases)
+    .sort((a, b) => b[0].length - a[0].length)
+    .reduce((result, [english, russian]) => result.replaceAll(english, russian), withFullNames);
 }
 
 function primaryChampion(champion) {
@@ -550,7 +634,7 @@ function renderCards(filter = "all") {
               ([name, score], index) => `
                 <div class="standing-row">
                   <span class="standing-rank">${index + 1}</span>
-                  <span class="standing-name">${name}</span>
+                  <span class="standing-name">${localizeName(name)}</span>
                   <span class="standing-score">${score}</span>
                 </div>
               `,
@@ -573,9 +657,9 @@ function renderCards(filter = "all") {
             </div>
             <div class="champ-title">
               <span>Чемпион</span>
-              <h3>${item.champion}</h3>
+              <h3>${localizeName(item.champion)}</h3>
             </div>
-            <p class="champ-note">${item.note}</p>
+            <p class="champ-note">${localizeText(item.note)}</p>
             <a class="source-link" href="${item.source}">Источник данных</a>
           </div>
           <div class="standings" aria-label="Топ-5">
@@ -604,13 +688,13 @@ function featureCard({ year, person, badges, titleLabel, titleValue, note, sourc
       </div>
       <div class="feature-body">
         <div class="meta-row">
-          ${badges.map((badge) => `<span class="badge">${badge}</span>`).join("")}
+          ${badges.map((badge) => `<span class="badge">${localizeText(String(badge))}</span>`).join("")}
         </div>
         <div class="champ-title">
           <span>${titleLabel}</span>
-          <h3>${titleValue}</h3>
+          <h3>${localizeName(titleValue)}</h3>
         </div>
-        <p class="champ-note">${note}</p>
+        <p class="champ-note">${localizeText(note)}</p>
         <a class="source-link" href="${source}">Источник данных</a>
       </div>
     </article>
